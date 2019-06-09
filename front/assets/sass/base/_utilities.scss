@@ -1,0 +1,13 @@
+.ui-center {
+  @include center;
+}
+
+.col-half {
+  @include column(1/2);
+}
+
+@include breakpoint(desktop, 1120px) {
+  [class^="col-"] {
+    width: 100% !important;
+  }
+}
