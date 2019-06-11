@@ -9,7 +9,7 @@
   width: 100%;
   display: flex;
   .img {
-    background: url("/images/rawpixel-411166-unsplash.jpg");
+    background: linear-gradient(rgba(16, 29, 44, 0.1), rgba(16, 29, 44, 0.93)), url("/images/rawpixel-411166-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
@@ -118,6 +118,25 @@
     input {
       border: none;
       padding: 0;
+    }
+  }
+  .alert{
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #ff5863;
+    display: none;
+    margin-top: 10px;
+  }
+  .active{
+    display: block;
+  }
+  .border{
+    &-red{
+      border-color: #ff5863;
     }
   }
 }
@@ -253,3 +272,4 @@
     text-decoration: none;
   }
 }
+

@@ -30,28 +30,30 @@
           <div class="container-form">
             <p class="ui-title">Criar meu cadastro</p>
             <p class="ui-subtitle">Para acompanhar sua contratação de crédito você utilizará seu e-mail e CPF.</p>
-            <form action="">
+            <form>
               <div class="ui-row">
                 <div class="ui-label">
                   <label for="txtemail">E-mail</label>
-                  <input type="text" id="txtmail" required placeholder="Escreva seu nome completo">
+                  <input type="text" id="txtmail" placeholder="Escreva seu nome completo">
+                  
                 </div>
               </div>
               <div class="ui-row">
                 <div class="ui-label">
                   <label for="txtcpf">CPF</label>
-                  <input type="text" id="txtcpf" required placeholder="998.767.888-70">
+                  <input type="text" id="txtcpf" placeholder="998.767.888-70">
+                  <p id="alertCpf" class="alert">O campo CPF é obrigatório</p>
                 </div>
                 <div class="ui-label">
                   <label for="txtnasc">Data de nascimento</label>
-                  <input type="text" id="txtnasc" required placeholder="21/12/1990">
+                  <input type="text" id="txtnasc" placeholder="21/12/1990">
                 </div>
               </div>
               <div class="ui-row">
                 <div class="ui-label">
                   <label for="txtpassw">Senha</label>
                   <div class="input-icon">
-                    <input type="password" id="txtpassw" required placeholder="Cadastre uma senha">
+                    <input type="password" id="txtpassw" placeholder="Cadastre uma senha">
                     <img src="../images/empy.png" alt="Show password">
                   </div>
                 </div>
@@ -71,6 +73,7 @@
                   <img class="btn-img" src="../images/shape.png" alt="Cadeado">
                   Cadastrar
                 </div>
+                <!-- <input type="submit" value="continuar"> -->
               </div>
             </form>
             <div class="login">
@@ -89,5 +92,62 @@
 </html>
 
 <script>
+  var btnCad = document.getElementById('btnCadastrar');
+  btnCad.onclick = function () {
+    const txtcpf = document.getElementById('txtcpf').value;
+    function verificaCampoCpf() {
 
+      if (txtcpf.length === 0) {
+        var idtxtcpf = document.getElementById('txtcpf');
+        if (idtxtcpf.classList.contains('border-red')) {
+
+        } else {
+          var alertCpf = document.getElementById('alertCpf');
+          idtxtcpf.className += 'border-red';
+          alertCpf.classList.add("active");
+        }
+      }
+      else {
+        var cpf = document.getElementById('txtcpf').value;
+        var numeros, digitos, soma, i, resultado, digitos_iguais;
+        digitos_iguais = 1;
+        if (cpf.length < 11)
+          return false;
+        for (i = 0; i < cpf.length - 1; i++)
+          if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+            digitos_iguais = 0;
+            break;
+          }
+        if (!digitos_iguais) {
+          numeros = cpf.substring(0, 9);
+          digitos = cpf.substring(9);
+          soma = 0;
+          for (i = 10; i > 1; i--)
+            soma += numeros.charAt(10 - i) * i;
+          resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+          if (resultado != digitos.charAt(0))
+            return false;
+          numeros = cpf.substring(0, 10);
+          soma = 0;
+          for (i = 11; i > 1; i--)
+            soma += numeros.charAt(11 - i) * i;
+          resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+          if (resultado != digitos.charAt(1))
+            return false;
+          return true;
+        }
+        else
+          return false;
+      }
+    }
+    if (verificaCampoCpf() === true) {
+      console.log('oi')
+    }
+    if (verificaCampoCpf() === false && txtcpf.length !== 0) {
+      var alertCpf = document.getElementById('alertCpf');
+      document.getElementById("txtcpf").classList.add("border-red")
+      document.getElementById("alertCpf").classList.add("active")
+      document.getElementById("alertCpf").innerHTML = "Cpf invalido";
+    }
+  }
 </script>
